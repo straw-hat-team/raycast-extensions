@@ -7,11 +7,8 @@
 
 A collection of extensions for the [Raycast](https://raycast.com) app.
 
-## Explanations
-
-- `extensions` contains all the extensions.
 
 ## References
 
 - Visit [Raycast Developers](https://developers.raycast.com) to learn how to
-  create your own extensions.
+  create extensions.
