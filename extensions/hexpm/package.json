@@ -5,6 +5,7 @@
   "description": "Search packages on Hex and open previously visited ones faster.",
   "icon": "icon.png",
   "author": "yordis",
+  "owner": "straw-hat-llc",
   "license": "MIT",
   "commands": [
     {
@@ -65,9 +66,7 @@
     }
   ],
   "contributors": [],
-  "categories": [
-    "Developer Tools"
-  ],
+  "categories": ["Developer Tools"],
   "scripts": {
     "build": "ray build -e dist",
     "dev": "ray develop",
