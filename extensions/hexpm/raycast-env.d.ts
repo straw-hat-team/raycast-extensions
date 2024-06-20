@@ -9,25 +9,24 @@
 
 type ExtensionPreferences = {
   /** Search Sorting - The sorting of the search results. */
-  "search_sorting": "name" | "total_downloads" | "recent_downloads" | "inserted_at" | "updated_at",
+  search_sorting: "name" | "total_downloads" | "recent_downloads" | "inserted_at" | "updated_at";
   /** Visited Package History Count - How many items to store in your visited package history */
-  "visitedPackageHistoryCount": string
-}
+  visitedPackageHistoryCount: string;
+};
 
 /** Preferences accessible in all the extension's commands */
-declare type Preferences = ExtensionPreferences
+declare type Preferences = ExtensionPreferences;
 
 declare namespace Preferences {
   /** Preferences accessible in the `search-packages` command */
-  export type SearchPackages = ExtensionPreferences & {}
+  export type SearchPackages = ExtensionPreferences & {};
   /** Preferences accessible in the `create-mix-project` command */
-  export type CreateMixProject = ExtensionPreferences & {}
+  export type CreateMixProject = ExtensionPreferences & {};
 }
 
 declare namespace Arguments {
   /** Arguments passed to the `search-packages` command */
-  export type SearchPackages = {}
+  export type SearchPackages = {};
   /** Arguments passed to the `create-mix-project` command */
-  export type CreateMixProject = {}
+  export type CreateMixProject = {};
 }
-

@@ -9,9 +9,9 @@ type UrlString = string;
 type PackageVersion = string;
 export type Package = {
   configs: {
-    "erlang.mk": string;
-    "mix.exs": string;
-    "rebar.config": string;
+    'erlang.mk': string;
+    'mix.exs': string;
+    'rebar.config': string;
   };
   docs_html_url: UrlString;
   downloads: {

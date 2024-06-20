@@ -1,13 +1,13 @@
-import { getPreferenceValues } from "@raycast/api";
-import { Package } from "../types";
-import { isPackage } from "../helpers";
-import { useLocalStorage } from "./use-localstorage";
+import { getPreferenceValues } from '@raycast/api';
+import { isPackage } from '../helpers';
+import { Package } from '../types';
+import { useLocalStorage } from './use-localstorage';
 
 export function useVisitedPackages() {
   const preferenceValues = getPreferenceValues();
   const localStorage = useLocalStorage<Package[]>({
-    namespace: "HEXPM",
-    key: "VISITED_PACKAGES",
+    namespace: 'HEXPM',
+    key: 'VISITED_PACKAGES',
     initialValue: [],
   });
 

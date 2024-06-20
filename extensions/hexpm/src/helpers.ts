@@ -1,4 +1,4 @@
-import { Package, Release } from "./types";
+import { Package, Release } from './types';
 
 export function isPackage(pkg: Package) {
   return (item: Package) => item.name !== pkg.name;

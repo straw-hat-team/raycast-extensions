@@ -1,5 +1,5 @@
-import { Form } from "@raycast/api";
-import { useState } from "react";
+import { Form } from '@raycast/api';
+import { useState } from 'react';
 
 const MODULE_NAME_REGEXP = /^[A-Z]\w*(\.[A-Z]\w*)*$/;
 const APP_NAME_REGEXP = /^[a-z][a-z0-9_]*$/;
@@ -16,7 +16,7 @@ export default function Command() {
 
     if (!MODULE_NAME_REGEXP.test(event.target.value)) {
       setModuleNameError(
-        "Module name must start with an uppercase ASCII letter, followed by ASCII letters, numbers, or underscores, and separated by dots (for example: Foo.Bar).",
+        'Module name must start with an uppercase ASCII letter, followed by ASCII letters, numbers, or underscores, and separated by dots (for example: Foo.Bar).',
       );
     } else {
       setModuleNameError(undefined);
@@ -31,7 +31,7 @@ export default function Command() {
 
     if (!APP_NAME_REGEXP.test(event.target.value)) {
       setAppNameError(
-        "Application name must start with a lowercase ASCII letter, followed by lowercase ASCII letters, numbers, or underscores (for example: my_app).",
+        'Application name must start with a lowercase ASCII letter, followed by lowercase ASCII letters, numbers, or underscores (for example: my_app).',
       );
     } else {
       setAppNameError(undefined);

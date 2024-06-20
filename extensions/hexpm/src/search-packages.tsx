@@ -1,32 +1,32 @@
 import {
+  Action,
   ActionPanel,
   Color,
   Icon,
   List,
-  showToast,
-  useNavigation,
-  Action,
   Toast,
   getPreferenceValues,
-} from "@raycast/api";
-import { useFrecencySorting } from "@raycast/utils";
+  showToast,
+  useNavigation,
+} from '@raycast/api';
+import { useFrecencySorting } from '@raycast/utils';
 
-import { Package, Release } from "./types";
+import { useState } from 'react';
 import {
   getDiffHtmlUrl,
   getPackageId,
-  packageNameIncludes,
   getPreviewHtmlUrl,
-  getReleaseHtmlUrl,
   getReleaseDocsHtmlUrl,
-} from "./helpers";
-import { usePackagesQuery } from "./hooks/use-packages-query";
-import { useVisitedPackages } from "./hooks/use-visited-packages";
-import { useState } from "react";
+  getReleaseHtmlUrl,
+  packageNameIncludes,
+} from './helpers';
+import { usePackagesQuery } from './hooks/use-packages-query';
+import { useVisitedPackages } from './hooks/use-visited-packages';
+import { Package, Release } from './types';
 
 export default function Command() {
   const preferenceValues = getPreferenceValues();
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
   const visitedPackages = useVisitedPackages();
   const packagesQuery = usePackagesQuery({
     search: searchText,
@@ -34,7 +34,7 @@ export default function Command() {
     onError(error: Error) {
       showToast({
         style: Toast.Style.Failure,
-        title: "Failed searching packages",
+        title: 'Failed searching packages',
         message: error.message,
       });
     },
@@ -54,7 +54,7 @@ export default function Command() {
     >
       <List.Section
         title="Visited Packages"
-        subtitle={visitedPackages.data ? `${visitedPackages.data.length} package(s)` : "No visited packages"}
+        subtitle={visitedPackages.data ? `${visitedPackages.data.length} package(s)` : 'No visited packages'}
       >
         {visitedPackages.data.filter(packageNameIncludes(searchText)).map((pkg) => (
           <PackageListItem
@@ -98,20 +98,20 @@ function PackageListItem(props: {
           <ActionPanel.Section>
             <Action.OpenInBrowser
               title="Open in Hex"
-              shortcut={{ modifiers: ["cmd"], key: "h" }}
+              shortcut={{ modifiers: ['cmd'], key: 'h' }}
               url={props.package.html_url}
               onOpen={() => props.onVisit(props.package)}
             />
             <Action.OpenInBrowser
               title="Open in Hex Docs"
-              shortcut={{ modifiers: ["cmd"], key: "d" }}
+              shortcut={{ modifiers: ['cmd'], key: 'd' }}
               url={props.package.docs_html_url}
               onOpen={() => props.onVisit(props.package)}
             />
             <Action
               icon={Icon.List}
               title="Browse Releases"
-              shortcut={{ modifiers: ["cmd"], key: "r" }}
+              shortcut={{ modifiers: ['cmd'], key: 'r' }}
               onAction={() => navigation.push(<ReleaseView package={props.package} />)}
             />
             <ActionPanel.Submenu icon={Icon.Globe} title="Open Links">
@@ -124,22 +124,22 @@ function PackageListItem(props: {
             <Action.CopyToClipboard
               title="Copy Exact Version"
               content={props.package.latest_stable_version}
-              shortcut={{ modifiers: ["cmd"], key: "." }}
+              shortcut={{ modifiers: ['cmd'], key: '.' }}
             />
             <Action.CopyToClipboard
               title="Copy mix.exs"
-              content={props.package.configs["mix.exs"]}
-              shortcut={{ modifiers: ["cmd", "shift"], key: "m" }}
+              content={props.package.configs['mix.exs']}
+              shortcut={{ modifiers: ['cmd', 'shift'], key: 'm' }}
             />
             <Action.CopyToClipboard
               title="Copy rebar.config"
-              content={props.package.configs["rebar.config"]}
-              shortcut={{ modifiers: ["cmd", "shift"], key: "r" }}
+              content={props.package.configs['rebar.config']}
+              shortcut={{ modifiers: ['cmd', 'shift'], key: 'r' }}
             />
             <Action.CopyToClipboard
               title="Copy erlang.mk"
-              content={props.package.configs["erlang.mk"]}
-              shortcut={{ modifiers: ["cmd", "shift"], key: "e" }}
+              content={props.package.configs['erlang.mk']}
+              shortcut={{ modifiers: ['cmd', 'shift'], key: 'e' }}
             />
           </ActionPanel.Section>
 
@@ -174,21 +174,21 @@ function ReleaseItem(props: { index: number; release: Release; package: Package 
   if (props.release.has_docs) {
     accessories.push({
       icon: Icon.Book,
-      tooltip: "Has Documentation",
+      tooltip: 'Has Documentation',
     });
   }
 
   if (props.release.version === props.package.latest_stable_version) {
     accessories.push({
       icon: Icon.Star,
-      tooltip: "Latest Stable Version",
+      tooltip: 'Latest Stable Version',
     });
   }
 
   const retirement = props.package.retirements[props.release.version];
   if (retirement) {
     accessories.push({
-      tag: { value: retirement.reason === "report" ? "REPORT" : "RETIRED", color: Color.Red },
+      tag: { value: retirement.reason === 'report' ? 'REPORT' : 'RETIRED', color: Color.Red },
       tooltip: props.package.retirements[props.release.version].message,
     });
   }
@@ -201,24 +201,24 @@ function ReleaseItem(props: { index: number; release: Release; package: Package 
         <ActionPanel title={`${props.package.name}@${props.release.version}`}>
           <Action.OpenInBrowser
             title="Open in Hex"
-            shortcut={{ modifiers: ["cmd"], key: "r" }}
+            shortcut={{ modifiers: ['cmd'], key: 'r' }}
             url={getReleaseHtmlUrl(props.package, props.release)}
           />
           <Action.OpenInBrowser
             title="Open in Hex Docs"
-            shortcut={{ modifiers: ["cmd"], key: "d" }}
+            shortcut={{ modifiers: ['cmd'], key: 'd' }}
             url={getReleaseDocsHtmlUrl(props.package, props.release)}
           />
           <Action.OpenInBrowser
             title="Open Preview in Hex"
-            shortcut={{ modifiers: ["cmd"], key: "c" }}
+            shortcut={{ modifiers: ['cmd'], key: 'c' }}
             icon={Icon.Code}
             url={getPreviewHtmlUrl(props.package, props.release)}
           />
           {previousRelease && (
             <Action.OpenInBrowser
               title="Open Diff in Hex"
-              shortcut={{ modifiers: ["cmd", "shift"], key: "d" }}
+              shortcut={{ modifiers: ['cmd', 'shift'], key: 'd' }}
               url={getDiffHtmlUrl(props.package, props.release, previousRelease)}
             />
           )}

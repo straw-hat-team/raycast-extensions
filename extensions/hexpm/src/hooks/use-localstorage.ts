@@ -1,6 +1,6 @@
-import { LocalStorage } from "@raycast/api";
-import type { SetStateAction } from "react";
-import { useEffect, useState, useCallback } from "react";
+import { LocalStorage } from '@raycast/api';
+import type { SetStateAction } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function useLocalStorage<T = unknown>(props: { key: string; initialValue: T; namespace: string }) {
   const [isLoading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ export function useLocalStorage<T = unknown>(props: { key: string; initialValue:
   function onSetItem(updater: SetStateAction<T>) {
     setData((prevState) => {
       // @ts-expect-error - TS doesn't understand that updater can be a function
-      const state = typeof updater === "function" ? updater(prevState) : updater;
+      const state = typeof updater === 'function' ? updater(prevState) : updater;
       LocalStorage.setItem(storageKey, JSON.stringify(state));
       return state;
     });

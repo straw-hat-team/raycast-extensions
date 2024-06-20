@@ -1,26 +1,26 @@
-import { environment } from "@raycast/api";
-import { useFetch } from "@raycast/utils";
-import { Package } from "../types";
+import { environment } from '@raycast/api';
+import { useFetch } from '@raycast/utils';
+import { Package } from '../types';
 
 type HexPackagesResponse = Package[];
 
 export function usePackagesQuery(props: {
   search: string;
-  sort: "name" | "total_downloads" | "recent_downloads" | "inserted_at" | "updated_at";
+  sort: 'name' | 'total_downloads' | 'recent_downloads' | 'inserted_at' | 'updated_at';
   onError?(error: Error): void;
 }) {
   return useFetch<HexPackagesResponse, HexPackagesResponse, HexPackagesResponse>(
     (pagination) => {
-      const url = new URL("https://hex.pm/api/packages");
-      url.searchParams.append("sort", props.sort);
-      url.searchParams.append("search", props.search);
-      url.searchParams.append("page", String(pagination.page + 1));
+      const url = new URL('https://hex.pm/api/packages');
+      url.searchParams.append('sort', props.sort);
+      url.searchParams.append('search', props.search);
+      url.searchParams.append('page', String(pagination.page + 1));
       return url.toString();
     },
     {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         UserAgent: `Raycast/${environment.raycastVersion} (${environment.extensionName})`,
       },
       // -----------------------------------------------------------------------
